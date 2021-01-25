@@ -6,5 +6,11 @@
 	],
 	"settings": {
 		"python.pythonPath": "/Users/yanndebain/opt/miniconda3/envs/tictactoe/bin/python",
+		"cSpell.words": [
+			"dtype",
+			"fliplr",
+			"hbox",
+			"numpy"
+		],
 	}
 }
