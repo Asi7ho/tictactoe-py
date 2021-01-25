@@ -11,12 +11,15 @@ from PyQt5.QtCore import *
 WINDOW_WIDTH = 400
 WINDOW_HEIGHT = 400
 
+GRID_HEIGHT = 330
+
 
 # Main window
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.board_size = 3
+        self.icon_size = GRID_HEIGHT / self.board_size
         self.game = AI(self.board_size)
         self.buttons = {}
 
@@ -81,11 +84,13 @@ class MainWindow(QMainWindow):
 
     def increaseBoard(self):
         self.board_size += 1
+        self.icon_size = GRID_HEIGHT / self.board_size
         self.game = AI(self.board_size)
         self.homePage()
 
     def decreaseBoard(self):
         self.board_size -= 1
+        self.icon_size = GRID_HEIGHT / self.board_size
         self.game = AI(self.board_size)
         self.homePage()
 
@@ -105,7 +110,8 @@ class MainWindow(QMainWindow):
                 # keep a reference to the buttons
                 self.buttons[(i, j)] = QPushButton()
                 self.buttons[(i, j)].setIcon(QIcon(self.game.EMPTY))
-                self.buttons[(i, j)].setIconSize(QSize(111, 111))
+                self.buttons[(i, j)].setIconSize(
+                    QSize(self.icon_size, self.icon_size))
                 self.buttons[(i, j)].clicked.connect(
                     partial(self.setAction, i, j))
 
@@ -148,7 +154,7 @@ class MainWindow(QMainWindow):
         # set move for the player
         self.game.setMove(i, j, self.game.player)
         self.buttons[(i, j)].setIcon(QIcon(self.game.player))
-        self.buttons[(i, j)].setIconSize(QSize(111, 111))
+        self.buttons[(i, j)].setIconSize(QSize(self.icon_size, self.icon_size))
         self.buttons[(i, j)].setEnabled(False)
         if self.checkEndGame():
             return
@@ -164,12 +170,13 @@ class MainWindow(QMainWindow):
 
         alpha = -inf
         beta = +inf
+        depth = min(depth, self.game.max_depth)
         move = self.game.minimax(depth, alpha, beta)
         x = move[0]
         y = move[1]
         self.game.setMove(x, y, self.game.player)
         self.buttons[(x, y)].setIcon(QIcon(self.game.player))
-        self.buttons[(x, y)].setIconSize(QSize(111, 111))
+        self.buttons[(x, y)].setIconSize(QSize(self.icon_size, self.icon_size))
         self.buttons[(x, y)].setEnabled(False)
         if self.checkEndGame():
             return
@@ -179,8 +186,8 @@ class MainWindow(QMainWindow):
     def checkEndGame(self):
         endGame = False
         if self.game.checkWin(self.game.player):
-            for x in range(3):
-                for y in range(3):
+            for x in range(self.board_size):
+                for y in range(self.board_size):
                     self.buttons[(x, y)].setEnabled(False)
 
             msg = QMessageBox()
