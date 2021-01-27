@@ -111,7 +111,7 @@ class MainWindow(QMainWindow):
                 self.buttons[(i, j)] = QPushButton()
                 self.buttons[(i, j)].setIcon(QIcon(self.game.EMPTY))
                 self.buttons[(i, j)].setIconSize(
-                    QSize(self.icon_size, self.icon_size))
+                    QSize(int(self.icon_size), int(self.icon_size)))
                 self.buttons[(i, j)].clicked.connect(
                     partial(self.setAction, i, j))
 

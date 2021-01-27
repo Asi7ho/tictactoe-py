@@ -7,7 +7,7 @@ class AI(TicTacToe):
     def __init__(self, board_size):
         super().__init__(board_size)
 
-        self.max_depth = 8
+        self.max_depth = 1000
 
     def evaluate(self):
         """
