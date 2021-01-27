@@ -1,0 +1,7 @@
+autopep8 @ file:///home/conda/feedstock_root/build_artifacts/autopep8_1596345643597/work
+certifi==2020.12.5
+numpy==1.19.5
+pycodestyle @ file:///home/conda/feedstock_root/build_artifacts/pycodestyle_1589305246696/work
+PyQt5==5.15.2
+PyQt5-sip==12.8.1
+toml @ file:///home/conda/feedstock_root/build_artifacts/toml_1604308577558/work
